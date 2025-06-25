@@ -5,18 +5,18 @@ using System.IO;
 namespace EasySave.Core
 {
     /// <summary>
-    /// Centralise tous les chemins utilisés par l’application.
-    /// Toujours relatifs au dossier où se trouve l’exécutable.
+    /// Holds every path the application relies on.
+    /// All paths are expressed relative to the folder that contains the executable.
     /// </summary>
     public static class AppPaths
     {
-        /// <summary>Racine de l’application portable (dossier de l’exe).</summary>
+        /// <summary>Root folder of the portable application (i.e., the folder that contains the EXE).</summary>
         public static readonly string Root = AppContext.BaseDirectory;
 
-        public static readonly string Logs = Path.Combine(Root, "Logs");
-        public static readonly string Scenarios = Path.Combine(Root, "scenarios.json");
-        public static readonly string Settings = Path.Combine(Root, "settings.json");
-        public static readonly string LangDir = Path.Combine(Root, "Langages");
-        public static readonly string State = Path.Combine(Root, "state.json");
+        // ── Sub-paths ──────────────────────────────────────────────────────────────
+        public static readonly string Logs = Path.Combine(Root, "Logs");          // Daily JSON / XML logs
+        public static readonly string Scenarios = Path.Combine(Root, "scenarios.json"); // User-defined backup jobs
+        public static readonly string Settings = Path.Combine(Root, "settings.json");  // Global settings
+        public static readonly string LangDir = Path.Combine(Root, "Langages");       // Localised message files
     }
 }

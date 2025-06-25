@@ -10,25 +10,37 @@ using System.Xml.Linq;
 
 namespace EasySave.Core
 {
+    /// <summary>
+    /// Represents **one single log entry** (a complete backup run).
+    /// It can be serialized to JSON or XML and appended to the daily log file
+    /// in a thread- and process-safe manner.
+    /// </summary>
     public class LogEntry
     {
-        /*──────────────────── Données ───────────────────*/
-        private DateTime timestamp;
-        private List<Folder> listFolder;
-        private string jobName;
-        private BackupType backupType;
-        private string sourceUNC;
-        private string targetUNC;
-        private long fileSizeBytes;
-        private long durationMs;
-        private BackupState state;
+        /* ──────────────────────────── Data ─────────────────────────── */
 
-        /*──────────────────── Verrous ───────────────────*/
-        private static readonly object fileLock = new object();
+        private DateTime timestamp;      // When the backup finished
+        private List<Folder> listFolder;    // All items processed
+        private string jobName;        // Friendly name of the scenario
+        private BackupType backupType;     // Full or Differential
+        private string sourceUNC;      // UNC / absolute source path
+        private string targetUNC;      // UNC / absolute target path
+        private long fileSizeBytes;  // Cumulated size of copied files
+        private long durationMs;     // Total duration of the job
+        private BackupState state;          // Final state (Success, Failed, …)
+
+        /* ──────────────────────── Synchronisation ──────────────────── */
+
+        // In-process protection (multi-thread)
+        private static readonly object fileLock = new();
+
+        // Cross-process protection (only one process writes at a time)
         private static readonly Mutex _logMutex =
-            new(false, @"Global\EasySave_LogFile");
+            new(initiallyOwned: false, name: @"Global\EasySave_LogFile");
 
-        /*──────────────────── Constructeurs ─────────────*/
+        /* ───────────────────────── Constructors ────────────────────── */
+
+        /// <summary>Default constructor – creates an “empty” entry.</summary>
         public LogEntry()
         {
             timestamp = DateTime.Now;
@@ -42,9 +54,17 @@ namespace EasySave.Core
             state = BackupState.Pending;
         }
 
-        public LogEntry(DateTime timestamp, string jobName, BackupType backupType,
-                        string sourceUNC, string targetUNC, long fileSizeBytes,
-                        long durationMs, BackupState state, List<Folder> listFolder)
+        /// <summary>Full constructor – every field can be set at once.</summary>
+        public LogEntry(
+            DateTime timestamp,
+            string jobName,
+            BackupType backupType,
+            string sourceUNC,
+            string targetUNC,
+            long fileSizeBytes,
+            long durationMs,
+            BackupState state,
+            List<Folder> listFolder)
         {
             this.timestamp = timestamp;
             this.jobName = jobName;
@@ -54,12 +74,15 @@ namespace EasySave.Core
             this.durationMs = durationMs;
             this.state = state;
             this.listFolder = listFolder ?? new List<Folder>();
+
+            // If size was not provided, compute it from the folder list
             this.fileSizeBytes = fileSizeBytes > 0
-                                ? fileSizeBytes
-                                : this.listFolder.Sum(f => f.GetSize());
+                               ? fileSizeBytes
+                               : this.listFolder.Sum(f => f.GetSize());
         }
 
-        /*──────────────────── Getters / Setters ─────────*/
+        /* ───────────────────── Getters / Setters ───────────────────── */
+
         public DateTime GetTimestamp() => timestamp;
         public string GetJobName() => jobName;
         public BackupType GetBackupType() => backupType;
@@ -79,11 +102,14 @@ namespace EasySave.Core
         public void SetState(BackupState v) => state = v;
         public void SetListFolder(List<Folder> v) => listFolder = v;
 
-        /*──────────────────── Helpers liste ─────────────*/
+        /* ────────────────── List helpers (convenience) ────────────── */
+
         public void AddFolder(Folder f) => listFolder.Add(f);
         public void RemoveFolder(Folder f) => listFolder.Remove(f);
 
-        /*──────────────────── Affichage ─────────────────*/
+        /* ───────────────────── Human-readable dump ─────────────────── */
+
+        /// <summary>Pretty string for debugging / console output.</summary>
         public string Display()
         {
             var sb = new StringBuilder();
@@ -99,15 +125,16 @@ namespace EasySave.Core
             foreach (var f in listFolder)
             {
                 string type = f.GetIsFile() ? "file" : "folder";
-                sb.AppendLine($"  - {f.GetPath()} ({f.GetSize()} o) [{type}]");
+                sb.AppendLine($"  - {f.GetPath()} ({f.GetSize()} B) [{type}]");
             }
             return sb.ToString();
         }
 
-        /*──────────────────── Sérialisation JSON ─────────*/
+        /* ────────────────── JSON serialization ─────────────────────── */
+
         public string ToJson(bool indent = false)
         {
-            var anon = new
+            var payload = new
             {
                 timestamp = timestamp.ToString("o"),
                 jobName,
@@ -117,7 +144,7 @@ namespace EasySave.Core
                 fileSizeBytes,
                 durationMs,
                 state,
-                listFolder = listFolder.ConvertAll(f => new
+                listFolder = listFolder.Select(f => new
                 {
                     path = f.GetPath(),
                     size = f.GetSize(),
@@ -125,16 +152,18 @@ namespace EasySave.Core
                     encryptionTimeMs = f.GetEncryptionTimeMs()
                 })
             };
+
             return JsonSerializer.Serialize(
-                       anon,
+                       payload,
                        new JsonSerializerOptions { WriteIndented = indent })
                    + Environment.NewLine;
         }
 
-        /*──────────────────── Sérialisation XML ─────────*/
+        /* ────────────────── XML serialization ──────────────────────── */
+
         public string ToXml(bool indent = false)
         {
-            var entry = new XElement("logEntry",
+            XElement entry = new("logEntry",
                 new XElement("timestamp", timestamp.ToString("o")),
                 new XElement("jobName", jobName),
                 new XElement("backupType", backupType),
@@ -149,24 +178,32 @@ namespace EasySave.Core
                         new XAttribute("size", f.GetSize()),
                         new XAttribute("type", f.GetIsFile() ? "file" : "folder"),
                         new XAttribute("encryptionTimeMs", f.GetEncryptionTimeMs())
-                    )))
+                )))
             );
+
             return indent
                  ? entry.ToString(SaveOptions.None) + Environment.NewLine
                  : entry.ToString(SaveOptions.DisableFormatting) + Environment.NewLine;
         }
 
-        /*──────────────────── Écriture fichier protégée ─────────*/
+        /* ───────────────────── File-append (thread + process safe) ─── */
+
+        /// <summary>
+        /// Appends the entry to the daily log file (JSON or XML).
+        /// Uses a named **global mutex** for cross-process safety and an
+        /// **in-process lock** for multi-thread safety.
+        /// </summary>
         public void AppendToFile(LogFormat format = LogFormat.Json)
         {
-            /* 1) contenu JSON indenté pour l’algo existant */
-            string rawJson = ToJson(true).TrimEnd();
-            string indentedJson = string.Join(Environment.NewLine,
-                                      rawJson.Split(new[] { "\r\n", "\n" },
-                                                    StringSplitOptions.None)
-                                             .Select(l => "  " + l));
+            // 1) We reuse the existing “pretty” JSON to produce the old 2-spaces
+            //    indent expected by the historical algorithm.
+            string rawJson = ToJson(indent: true).TrimEnd();
+            string indentedJson = string.Join(
+                Environment.NewLine,
+                rawJson.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                       .Select(l => "  " + l));
 
-            /* 2) chemin du fichier */
+            // 2) Determine the log file path (one file per day & format)
             Directory.CreateDirectory(AppPaths.Logs);
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string fileName = format == LogFormat.Json
@@ -174,52 +211,61 @@ namespace EasySave.Core
                               : $"log-{date}.xml";
             string path = Path.Combine(AppPaths.Logs, fileName);
 
-            /* 3) tentative mutex inter-processus */
-            const int delay = 300, maxTry = 10;
-            for (int t = 0; t < maxTry; t++)
+            // 3) Try to enter the cross-process mutex with retries
+            const int delayMs = 300;
+            const int maxTry = 10;
+
+            for (int attempt = 0; attempt < maxTry; attempt++)
             {
                 if (!_logMutex.WaitOne(0))
                 {
-                    Thread.Sleep(delay);
-                    continue;
+                    Thread.Sleep(delayMs);
+                    continue;                       // try again later
                 }
 
                 try
                 {
-                    lock (fileLock)                    // intra-threads
+                    lock (fileLock)               // intra-process protection
                     {
                         if (format == LogFormat.Json)
                             AppendJson(path, indentedJson);
                         else
-                            AppendXml(path, ToXml(true));
+                            AppendXml(path, ToXml(indent: true));
                     }
-                    return;                             // succès
+                    return;                        // success → leave method
                 }
                 finally
                 {
                     _logMutex.ReleaseMutex();
                 }
             }
+
+            // Could not acquire the mutex after several tries
             throw new IOException("Log file busy for too long.");
         }
 
-        /*──────────────────── Helpers internels ─────────*/
+        /* ─────────────────── Internal helpers ─────────────────────── */
+
+        /// <summary>Append a JSON record while preserving the array structure.</summary>
         private static void AppendJson(string path, string entry)
         {
             if (!File.Exists(path) || new FileInfo(path).Length == 0)
             {
+                // First entry → create array
                 File.WriteAllText(path, "[\n" + entry + "\n]", Encoding.UTF8);
             }
             else
             {
                 string all = File.ReadAllText(path, Encoding.UTF8);
                 int idx = all.LastIndexOf(']');
-                if (idx < 0) all = "[";
+                if (idx < 0) all = "["; // malformed file → reset
+
                 string updated = all[..idx].TrimEnd() + ",\n" + entry + "\n]";
                 File.WriteAllText(path, updated, Encoding.UTF8);
             }
         }
 
+        /// <summary>Append an XML element to &lt;logEntries&gt; … &lt;/logEntries&gt;.</summary>
         private static void AppendXml(string path, string entryXml)
         {
             XElement entry = XElement.Parse(entryXml);
@@ -230,7 +276,6 @@ namespace EasySave.Core
             }
             else
             {
-
                 var doc = XDocument.Load(path);
                 doc.Root!.Add(entry);
                 doc.Save(path);
@@ -238,3 +283,4 @@ namespace EasySave.Core
         }
     }
 }
+    
