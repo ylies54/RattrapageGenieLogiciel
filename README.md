@@ -30,3 +30,32 @@ Dépôt contenant la version **corrigée et fonctionnelle** d’EasySave pour le
 
 ## 3. Arborescence simplifiée
 
+/Diagrammes UML/              ← diagrammes corrigés
+/Versions
+   ├─ CryptoSoft/             ← outil de chiffrement mono-instance
+   ├─ EasySave.Core/          ← bibliothèque partagée (.dll)
+   ├─ EasySave_G3_V3_0/       ← application finale (WPF)
+   └─ …                       ← archives des versions précédentes
+README.md                     ← ce fichier
+
+---
+
+## 4. Comment tester rapidement
+
+1. **Lancez** `EasySave_G3_V3_0.exe`.
+2. **Créez deux scénarios** (sources et cibles différentes).
+3. Cliquez sur **Play** :  
+   - Les extensions *prioritaires* (liste dans `settings.json`) sont traitées en premier.  
+   - Si vous ouvrez un *logiciel métier* (ex. `calc.exe`), les sauvegardes se mettent en pause et reprennent à sa fermeture.
+4. Vérifiez le dossier `Logs/` :  
+   - `log-AAAA-MM-JJ.json`  
+   - `log-AAAA-MM-JJ.xml`  
+   Les deux fichiers sont générés sans conflit d’écriture.
+
+---
+
+## 5. Support
+
+Pour toute question : **ylies54@example.com**
+
+Bon test !
