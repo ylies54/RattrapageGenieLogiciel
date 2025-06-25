@@ -30,5 +30,11 @@
   "ParamsWindow.LanguageHeader":             "🌐 Schnittstellensprache",
 
   "ParamsWindow.Save":                       "Speichern",
-  "ParamsWindow.Cancel":                     "Abbrechen"
+  "ParamsWindow.Cancel":                     "Abbrechen",
+
+  "ParamsWindow.PriorityExtensionsHeader": "Prioritäre Erweiterungen",
+  "ParamsWindow.AddPriorityExtension":    "Hinzufügen",
+  "ParamsWindow.RemovePriorityExtension": "Entfernen",
+  "MainWindow.ProgressHeader":            "Fortschritt (%)"
+
 }
