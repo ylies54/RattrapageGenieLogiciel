@@ -230,6 +230,7 @@ namespace EasySave.Core
             }
             else
             {
+
                 var doc = XDocument.Load(path);
                 doc.Root!.Add(entry);
                 doc.Save(path);
