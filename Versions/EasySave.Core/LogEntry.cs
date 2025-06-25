@@ -24,8 +24,8 @@ namespace EasySave.Core
         private BackupState state;
 
         /*──────────────────── Verrous ───────────────────*/
-        private static readonly object fileLock = new object();          // intra-threads
-        private static readonly Mutex _logMutex =                       // inter-processus
+        private static readonly object fileLock = new object();
+        private static readonly Mutex _logMutex =
             new(false, @"Global\EasySave_LogFile");
 
         /*──────────────────── Constructeurs ─────────────*/

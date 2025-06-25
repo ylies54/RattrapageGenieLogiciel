@@ -30,11 +30,5 @@
   "ParamsWindow.LanguageHeader":             "🌐 Interface language",
   
   "ParamsWindow.Save":                       "Save",
-  "ParamsWindow.Cancel":                     "Cancel",
-  
-  "ParamsWindow.PriorityExtensionsHeader": "Priority extensions",
-  "ParamsWindow.AddPriorityExtension": "Add",
-  "ParamsWindow.RemovePriorityExtension": "Remove",
-  "MainWindow.ProgressHeader": "Progress %"
-
+  "ParamsWindow.Cancel":                     "Cancel"
 }

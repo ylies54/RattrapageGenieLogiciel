@@ -30,11 +30,5 @@
   "ParamsWindow.LanguageHeader":             "🌐 Langue de l’interface",
   
   "ParamsWindow.Save":                       "Valider",
-  "ParamsWindow.Cancel":                     "Annuler",
-
-  "ParamsWindow.PriorityExtensionsHeader": "Extensions prioritaires",
-  "ParamsWindow.AddPriorityExtension": "Ajouter",
-  "ParamsWindow.RemovePriorityExtension": "Supprimer",
-  "MainWindow.ProgressHeader": "Progression %"
-
+  "ParamsWindow.Cancel":                     "Annuler"
 }
