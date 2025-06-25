@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Reflection;
+using EasySave.Core;
 
 
 namespace EasySave_G3_V1
@@ -56,7 +57,7 @@ namespace EasySave_G3_V1
         public void SearchLangages()
         {
             string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string TargetFolder = Path.Combine(exePath, @"..\..\..\Langages");
+            string TargetFolder = AppPaths.LangDir;
             string[] fichiers = Directory.GetFiles(TargetFolder);
             foreach (string fichier in fichiers)
             {

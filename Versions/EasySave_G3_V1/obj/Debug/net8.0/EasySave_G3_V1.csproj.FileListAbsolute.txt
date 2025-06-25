@@ -1,0 +1,6 @@
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V1\obj\Debug\net8.0\EasySave_G3_V1.csproj.AssemblyReference.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V1\obj\Debug\net8.0\EasySave_G3_V1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V1\obj\Debug\net8.0\EasySave_G3_V1.AssemblyInfoInputs.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V1\obj\Debug\net8.0\EasySave_G3_V1.AssemblyInfo.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V1\obj\Debug\net8.0\EasySave_G3_V1.csproj.CoreCompileInputs.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V1\obj\Debug\net8.0\EasySave_G3_V1.sourcelink.json

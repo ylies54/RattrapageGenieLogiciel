@@ -1,0 +1,38 @@
+﻿[
+  {
+    "timestamp": "2025-06-25T01:56:28.0324749\u002B02:00",
+    "jobName": "test",
+    "backupType": "Full",
+    "sourceUNC": "C:\\Users\\ylies\\Desktop\\gg",
+    "targetUNC": "C:\\Users\\ylies\\Desktop\\Nouveau dossier",
+    "fileSizeBytes": 4,
+    "durationMs": 4346,
+    "state": 1,
+    "listFolder": [
+      {
+        "path": "C:\\Users\\ylies\\Desktop\\gg\\aa.txt",
+        "size": 993,
+        "type": "file",
+        "encryptionTimeMs": 2
+      },
+      {
+        "path": "C:\\Users\\ylies\\Desktop\\gg\\dd.txt",
+        "size": 980,
+        "type": "file",
+        "encryptionTimeMs": 2
+      },
+      {
+        "path": "C:\\Users\\ylies\\Desktop\\gg\\ee.txt",
+        "size": 980,
+        "type": "file",
+        "encryptionTimeMs": 2
+      },
+      {
+        "path": "C:\\Users\\ylies\\Desktop\\gg\\ff.txt",
+        "size": 980,
+        "type": "file",
+        "encryptionTimeMs": 2
+      }
+    ]
+  }
+]

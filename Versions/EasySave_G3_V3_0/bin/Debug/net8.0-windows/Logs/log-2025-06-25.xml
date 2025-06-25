@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logEntries>
+  <logEntry>
+    <timestamp>2025-06-25T01:55:38.9961790+02:00</timestamp>
+    <jobName>test</jobName>
+    <backupType>Full</backupType>
+    <sourceUNC>C:\Users\ylies\Desktop\gg</sourceUNC>
+    <targetUNC>C:\Users\ylies\Desktop\Nouveau dossier</targetUNC>
+    <fileSizeBytes>4</fileSizeBytes>
+    <durationMs>4376</durationMs>
+    <state>Running</state>
+    <listFolder>
+      <item path="C:\Users\ylies\Desktop\gg\aa.txt" size="993" type="file" encryptionTimeMs="2" />
+      <item path="C:\Users\ylies\Desktop\gg\dd.txt" size="980" type="file" encryptionTimeMs="2" />
+      <item path="C:\Users\ylies\Desktop\gg\ee.txt" size="980" type="file" encryptionTimeMs="2" />
+      <item path="C:\Users\ylies\Desktop\gg\ff.txt" size="980" type="file" encryptionTimeMs="3" />
+    </listFolder>
+  </logEntry>
+</logEntries>

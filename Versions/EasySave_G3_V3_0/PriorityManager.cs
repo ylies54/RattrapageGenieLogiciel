@@ -7,50 +7,78 @@ using System.Threading.Tasks;
 
 namespace EasySave_G3_V3_0
 {
-
     public class PriorityManager
     {
-        private readonly HashSet<string> _priorityExts;
-        private int _pendingCount;
+        // ---------------------------------------------------------------------
+        // Fields
+        // ---------------------------------------------------------------------
+        private readonly HashSet<string> _priorityExts;   // extensions with high prio
 
-        // TaskCompletionSource signale la fin des fichiers prioritaires
-        private readonly TaskCompletionSource<bool> _priorityDrained =
+        private int _pendingCount = 0;                    // global remaining prio files
+
+        // Completed only when _pendingCount reaches 0
+        private TaskCompletionSource<bool> _tcs =
             new(TaskCreationOptions.RunContinuationsAsynchronously);
 
+        private readonly object _lock = new();            // protects TCS recreation
+
+        // ---------------------------------------------------------------------
+        // Ctor – normalises extensions (“.txt”, “…”) and fills the HashSet
+        // ---------------------------------------------------------------------
         public PriorityManager(IEnumerable<string> priorityExtensions)
         {
             _priorityExts = new HashSet<string>(
-                priorityExtensions.Select(e => e.StartsWith(".") ? e.ToLower() : "." + e.ToLower())
-            );
+                priorityExtensions.Select(ext =>
+                    ext.StartsWith('.') ? ext.ToLower() : "." + ext.ToLower()));
         }
 
-
-        public void RegisterPendingFiles(IEnumerable<string> allFilePaths)
+        // ---------------------------------------------------------------------
+        // Called ONCE per job to announce how many priority files it contains
+        // ---------------------------------------------------------------------
+        public void RegisterPendingFiles(IEnumerable<string> filePaths)
         {
-            _pendingCount = allFilePaths.Count(path =>
+            int add = filePaths.Count(path =>
                 _priorityExts.Contains(Path.GetExtension(path).ToLower()));
-            if (_pendingCount == 0)
-                _priorityDrained.TrySetResult(true);
+            if (add == 0) return;
+
+            /* If we were at 0, we must create a brand-new, non-completed TCS */
+            if (Volatile.Read(ref _pendingCount) == 0)
+            {
+                lock (_lock)
+                {
+                    if (_pendingCount == 0)              // double-check
+                        _tcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
+                }
+            }
+
+            Interlocked.Add(ref _pendingCount, add);     // thread-safe
         }
 
-
+        // ---------------------------------------------------------------------
+        // Await before copying a file. For priority ones -> returns immediately.
+        // ---------------------------------------------------------------------
         public Task WaitIfNonPriorityAsync(string filePath)
         {
-            var ext = Path.GetExtension(filePath).ToLower();
+            string ext = Path.GetExtension(filePath).ToLower();
+
+            // Non-priority + still pending → await global Task
             if (!_priorityExts.Contains(ext) && Volatile.Read(ref _pendingCount) > 0)
-                return _priorityDrained.Task;
-            return Task.CompletedTask;
+                return _tcs.Task;        // asynchronous wait
+
+            return Task.CompletedTask;   // no wait required
         }
 
-
+        // ---------------------------------------------------------------------
+        // Must be called when a priority file finishes copying/encrypting
+        // ---------------------------------------------------------------------
         public void SignalPriorityFileDone(string filePath)
         {
-            var ext = Path.GetExtension(filePath).ToLower();
-            if (_priorityExts.Contains(ext) &&
-                Interlocked.Decrement(ref _pendingCount) == 0)
-            {
-                _priorityDrained.TrySetResult(true);
-            }
+            string ext = Path.GetExtension(filePath).ToLower();
+            if (!_priorityExts.Contains(ext)) return;     // ignore non-priority
+
+            // If this was the last one, release everyone
+            if (Interlocked.Decrement(ref _pendingCount) == 0)
+                _tcs.TrySetResult(true);
         }
     }
 }

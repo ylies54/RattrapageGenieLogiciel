@@ -1,0 +1,17 @@
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.csproj.AssemblyReference.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\ParametresWindow.baml
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\Paramètre.baml
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\App.baml
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\ParametresWindow.g.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\Paramètre.g.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0_Content.g.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0_MarkupCompile.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.g.resources
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.AssemblyInfoInputs.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.AssemblyInfo.cs
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.csproj.CoreCompileInputs.cache
+C:\Users\ylies\source\repos\Projet_Genie_log_G3\Versions\EasySave_G3_V2_0\obj\Debug\net8.0-windows\EasySave_G3_V2_0.sourcelink.json

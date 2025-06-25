@@ -56,7 +56,6 @@ public class SocketServer
         if (msg.StartsWith("pause:"))
         {
             string scenarioName = msg.Substring(6);
-            // À compléter plus tard avec ta logique métier
             return $"Scénario {scenarioName} mis en pause.";
         }
         return "Commande inconnue";

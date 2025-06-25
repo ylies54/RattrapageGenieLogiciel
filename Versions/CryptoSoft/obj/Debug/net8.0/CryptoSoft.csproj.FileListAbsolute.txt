@@ -1,0 +1,12 @@
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\bin\Debug\net8.0\CryptoSoft.deps.json
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\bin\Debug\net8.0\CryptoSoft.dll
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\bin\Debug\net8.0\CryptoSoft.pdb
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.AssemblyInfoInputs.cache
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.AssemblyInfo.cs
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.csproj.CoreCompileInputs.cache
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.sourcelink.json
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.dll
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\refint\CryptoSoft.dll
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\CryptoSoft.pdb
+C:\Users\ylies\Source\Repos\Projet_Genie_log_G3\Versions\CryptoSoft\obj\Debug\net8.0\ref\CryptoSoft.dll

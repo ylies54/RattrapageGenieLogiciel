@@ -47,7 +47,6 @@ public class ScenarioList
             }
             else
             {
-                // Optionnel : gérer scénario non trouvé
                 Console.WriteLine($"Scénario avec ID {id} non trouvé.");
             }
         }
@@ -108,7 +107,7 @@ public class ScenarioList
 
         var options = new JsonSerializerOptions { WriteIndented = true };
         var json = JsonSerializer.Serialize(items.Where(i => i != null).ToList(), options);
-        string filePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\scenarios.json"));
+        string filePath = Path.GetFullPath(AppPaths.Scenarios);
 
         File.WriteAllText(filePath, json);
 
@@ -136,7 +135,7 @@ public class ScenarioList
 
         var options = new JsonSerializerOptions { WriteIndented = true };
         var json = JsonSerializer.Serialize(items.Where(i => i != null).ToList(), options);
-        string filePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\scenarios.json"));
+        string filePath = Path.GetFullPath(AppPaths.Scenarios);
 
         File.WriteAllText(filePath, json);
 
@@ -153,7 +152,7 @@ public class ScenarioList
         items.Remove(scenario);
         var options = new JsonSerializerOptions { WriteIndented = true };
         var json = JsonSerializer.Serialize(items.Where(i => i != null).ToList(), options);
-        string filePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\scenarios.json"));
+        string filePath = Path.GetFullPath(AppPaths.Scenarios);
 
         File.WriteAllText(filePath, json);
 

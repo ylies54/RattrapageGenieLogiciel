@@ -1,35 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Langages\Allemand.json" />
-    <None Remove="Langages\Anglais.json" />
-    <None Remove="Langages\Français.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Langages\Allemand.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Langages\Anglais.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Langages\Français.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<!-- Copie automatique de TOUS les .json du dossier Langages -->
 	<ItemGroup>
-		<ProjectReference Include="..\CryptoSoft\CryptoSoft.csproj" />
+		<None Include="Langages\**\*.json"
+			  CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<!-- Copie de scenarios.json -->
+	<ItemGroup>
+		<None Update="scenarios.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<!-- Références projets internes -->
+	<ItemGroup>
 		<ProjectReference Include="..\EasySave.Core\EasySave.Core.csproj" />
 	</ItemGroup>
+
+	<!-- Dossier d’images (optionnel, pas copié automatiquement) -->
 	<ItemGroup>
-	  <Folder Include="Images\" />
+		<Folder Include="Images\" />
 	</ItemGroup>
+
 </Project>

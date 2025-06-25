@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasySave.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -16,7 +17,7 @@ public class Parameters
  
 public class ParametersManager
 {
-    private const string FileName = "settings.json";
+    private static readonly string FileName = AppPaths.Settings;
     public Parameters Parametres { get; private set; }
 
     public ParametersManager()
