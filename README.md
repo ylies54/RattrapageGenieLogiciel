@@ -49,11 +49,3 @@
    - `log-AAAA-MM-JJ.json`  
    - `log-AAAA-MM-JJ.xml`  
    Les deux fichiers sont générés sans conflit d’écriture.
-
----
-
-## 5. Support
-
-Pour toute question : **ylies54@example.com**
-
-Bon test !
