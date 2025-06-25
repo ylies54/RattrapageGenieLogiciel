@@ -28,14 +28,14 @@
 
 ## 3. Arborescence simplifiée
 
-.
-├── Diagrammes UML/            # diagrammes corrigés
-├── Versions/
-│   ├── CryptoSoft/            # outil de chiffrement ( mono-instance )
-│   ├── EasySave.Core/         # bibliothèque partagée (DLL)
-│   ├── EasySave_G3_V3_0/      # application finale (WPF)
-│   └── …                      # archives des versions précédentes
-└── README.md                  # ce fichier
+␠␠␠␠.
+␠␠␠␠├── Diagrammes UML/    # diagrammes corrigés
+␠␠␠␠├── Versions/
+␠␠␠␠│␠␠␠␠├── CryptoSoft/    # outil de chiffrement (mono-instance)
+␠␠␠␠│␠␠␠␠├── EasySave.Core/  # bibliothèque partagée (DLL)
+␠␠␠␠│␠␠␠␠├── EasySave_G3_V3_0/ # application finale (WPF)
+␠␠␠␠│␠␠␠␠└── …        # archives des versions précédentes
+␠␠␠␠└── README.md    # ce fichier
 
 ---
 
