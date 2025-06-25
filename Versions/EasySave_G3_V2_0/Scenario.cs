@@ -200,7 +200,6 @@ namespace EasySave_G3_V1
                     folders.Count,
                     (int)stopwatch.ElapsedMilliseconds,
                     State,
-                    Description,
                     folders
                 );
 

@@ -115,7 +115,6 @@ namespace EasySave_G3_V1_1
                         0,
                         (int)stopwatch.ElapsedMilliseconds,
                         BackupState.Failed,
-                        description,
                         folders
                     );
                     Log.AppendToFile();
@@ -172,9 +171,8 @@ namespace EasySave_G3_V1_1
                 nbItems,
                 (int)stopwatch.ElapsedMilliseconds,
                 BackupState.Completed,
-                description,
-                folders
-            );
+                folders            
+);
             Log.AppendToFile();
             try 
             { 
