@@ -1,7 +1,5 @@
 # Rattrapage – *EasySave v3*
 
-Dépôt contenant la version **corrigée et fonctionnelle** d’EasySave pour le module Génie Logiciel.
-
 ---
 
 ## 1. Où lancer le programme ?
@@ -17,7 +15,7 @@ Dépôt contenant la version **corrigée et fonctionnelle** d’EasySave pour le
 
 ## 2. Points corrigés
 
-| Exigence du rattrapage                                                                         | Solution mise en place                                                                                               |
+| Elements du rattrapage                                                                         | Solution                                                                                                             |
 | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | DLL de logs **JSON + XML**                                                                     | `LogEntry` écrit désormais les deux formats.                                                                          |
 | Fonctionnement **portable dans n’importe quel répertoire**                                    | `AppPaths.cs` calcule tous les chemins via `AppContext.BaseDirectory`.                                                |
@@ -53,7 +51,6 @@ README.md – ce fichier
 2. **Créez deux scénarios** (sources et cibles différentes).
 3. Cliquez sur **Play** :  
    - Les extensions *prioritaires* (liste dans `settings.json`) sont traitées en premier.  
-   - Si vous ouvrez un *logiciel métier* (ex. `calc.exe`), les sauvegardes se mettent en pause et reprennent à sa fermeture.
 4. Vérifiez le dossier `Logs/` :  
    - `log-AAAA-MM-JJ.json`  
    - `log-AAAA-MM-JJ.xml`  
